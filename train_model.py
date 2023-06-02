@@ -25,6 +25,7 @@ data.rename(columns = {'marital-status': 'marital_status',
                        'capital-loss': 'capital_loss',
                        'hours-per-week': 'hours_per_week',
                        'native-country': 'native_country'}, inplace = True)
+
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
 train, test = train_test_split(data, test_size=0.20)
 
