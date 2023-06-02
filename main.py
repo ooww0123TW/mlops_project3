@@ -90,6 +90,6 @@ async def inference_data(data: Input):
 
         return data
     
-    except:
+    except Exception as e:
         logger.error("An error occurred: {}".format(e))
         raise
