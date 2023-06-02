@@ -1,5 +1,7 @@
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+import numpy as np
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -19,7 +21,8 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
     model = LogisticRegression(max_iter=1000, random_state=23)
-    model.fit(X_train, y_train)
+    model.fit(X_train,y_train)
+    
     return model
 
 

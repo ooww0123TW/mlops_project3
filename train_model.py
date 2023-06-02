@@ -19,19 +19,24 @@ import numpy as np
 
 # Add code to load in the data.
 data = pd.read_csv("./census.csv", sep=", ", engine='python')
-
+data.rename(columns = {'marital-status': 'marital_status', 
+                       'education-num': 'education_num', 
+                       'capital-gain': 'capital_gain', 
+                       'capital-loss': 'capital_loss',
+                       'hours-per-week': 'hours_per_week',
+                       'native-country': 'native_country'}, inplace = True)
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
 train, test = train_test_split(data, test_size=0.20)
 
 cat_features = [
     "workclass",
     "education",
-    "marital-status",
+    "marital_status",
     "occupation",
     "relationship",
     "race",
     "sex",
-    "native-country",
+    "native_country",
 ]
 
 x_train, y_train, encoder, lb = process_data(
@@ -56,6 +61,10 @@ with open('model.pkl', 'wb') as f_p:
 
 with open('encoder.pkl', 'wb') as f_p:
     pickle.dump(encoder, f_p)
+
+with open('label_binarizer.pkl', 'wb') as f_p:
+    pickle.dump(lb, f_p)
+
 
 
 # Test the model, and compute the model metric

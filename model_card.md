@@ -13,9 +13,6 @@ The users are prospective job hunter.
 The data was obtained from the UCI Machine Learning Repository (https://archive.ics.uci.edu/ml/datasets/census+income).
 To use the data for training a One Hot Encoder was used on the features and a label binarizer was used on the labels.
 
-## Evaluation Data
-
-
 ## Metrics
 The model was evaluated using F1 score. The value is 0.95
 
