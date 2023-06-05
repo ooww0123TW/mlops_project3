@@ -72,5 +72,7 @@ def process_data(
         except AttributeError:
             pass
     
+    print(f"X_continuous shape: {X_continuous.shape}")
+    print(f"X_categorical shape: {X_categorical.shape}")
     X = np.concatenate([X_continuous, X_categorical], axis=1)
     return X, y, encoder, lb

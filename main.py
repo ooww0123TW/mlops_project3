@@ -83,11 +83,11 @@ async def inference_data(data: Input):
         )
 
         preds = inference(model, x_test)
-        data.salary = label_binarizer.inverse_transform(preds)[0]
+        salary = label_binarizer.inverse_transform(preds)[0]
 
-        logger.info("Inference successful: {}".format(data.salary))
+        logger.info("Inference successful: {}".format(salary))
 
-        return data
+        return salary
     
     except Exception as e:
         logger.error("An error occurred: {}".format(e))

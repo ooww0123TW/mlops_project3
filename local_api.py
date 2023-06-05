@@ -1,9 +1,10 @@
-import requests
-import json
+# test_foo.py
 
-response = requests.get('https://salary-predictor-mhst.onrender.com')
-print(response.status_code)
-print(response.json())
+from fastapi.testclient import TestClient
+
+from main import app
+
+client = TestClient(app)
 
 data = {
     "age": 25,
@@ -22,6 +23,18 @@ data = {
     "native_country": "United-States",
     "salary": "<=50K"}
 
-response = requests.post('https://salary-predictor-mhst.onrender.com/data/', json=data, auth=('user', 'pass'))
-print(response.status_code)
-print(response.json())
+
+def test_get():
+    r = client.get("/")
+    print(r.json())
+    assert r.status_code == 200
+    assert r.json() == {"fetch": "Welcome!"}
+
+
+def test_post_query():
+    r = client.post("/data/", json=data)
+    print(r.json())
+    assert r.status_code == 200
+
+test_get()
+test_post_query()
