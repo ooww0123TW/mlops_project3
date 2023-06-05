@@ -38,7 +38,6 @@ class Input(BaseModel):
     capital_loss: int
     hours_per_week: int
     native_country: str
-    salary: str
 
 app = FastAPI()
 model_name = "./model.pkl"
@@ -77,18 +76,18 @@ async def inference_data(data: Input):
     try:
         test = pd.DataFrame(jsonable_encoder(data), index=[0])
         
-        # Proces the test data with the process_data function.
-        x_test, _, _, _ = process_data(
-            test, categorical_features=cat_features, label='salary', training=False,
-            encoder = loaded_encoder, lb=label_binarizer
-        )
+    #     # Proces the test data with the process_data function.
+    #     x_test, _, _, _ = process_data(
+    #         test, categorical_features=cat_features, label=None, training=False,
+    #         encoder = loaded_encoder, lb=label_binarizer
+    #     )
 
-        preds = inference(model, x_test)
-        data.salary = label_binarizer.inverse_transform(preds)[0]
+    #     preds = inference(model, x_test)
+    #     data.salary = label_binarizer.inverse_transform(preds)[0]
 
-        logger.info("Inference successful: {}".format(data.salary))
+    #     logger.info("Inference successful: {}".format(data.salary))
 
-        return data
+    #     return data
     
     except Exception as e:
         logger.error("An error occurred: {}".format(e))

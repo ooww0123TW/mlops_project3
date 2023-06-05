@@ -5,6 +5,8 @@ import ml.model
 from ml.data import process_data
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+import joblib
+
 import pickle
 
 @pytest.fixture
@@ -19,22 +21,17 @@ def test_trained_model_type(data):
     '''
     Check whether the train_model function return LogisticRegression Type or not
     '''
-    cat_features = [
-        "workclass",
-        "education",
-        "marital-status",
-        "occupation",
-        "relationship",
-        "race",
-        "sex",
-        "native-country",
-    ]
 
-    x_train, y_train, encoder, lb = process_data(
-        data, categorical_features=cat_features, label='salary', training=True
-    )
+    model = joblib.load('model.pkl')
+    # encoder = joblib.load('encoder.pkl')
+    # lb = joblib.load('label_binarizer.pkl')
 
-    model = ml.model.train_model(x_train, y_train) 
+    # x_train, y_train, _, _ = process_data(
+    #     data, categorical_features=cat_features, label='salary', training=False,
+    #     encoder=encoder, lb=lb
+    # )
+
+    # model = ml.model.train_model(x_train, y_train) 
     assert type(model) == LogisticRegression
 
 def test_model_metrics_output_type(data):
@@ -53,12 +50,26 @@ def test_model_metrics_output_type(data):
         "native-country",
     ]
 
-    x_train, y_train, encoder, lb = process_data(
-        data, categorical_features=cat_features, label='salary', training=True
-    )   
-
     with open('model.pkl', 'rb') as f_p:
         model = pickle.load(f_p)
+
+    with open('encoder.pkl', 'rb') as f_p:
+        encoder = pickle.load(f_p)
+
+    with open('label_binarizer.pkl', 'rb') as f_p:
+        lb = pickle.load(f_p)
+
+
+    # model = joblib.load('model.pkl')
+    # encoder = joblib.load('encoder.pkl')
+    # lb = joblib.load('label_binarizer.pkl')
+
+
+    x_train, y_train, _, _ = process_data(
+        data, categorical_features=cat_features, label='salary', training=False,
+        encoder=encoder, lb=lb
+    )   
+
     
     preds = model.predict(x_train)
     precision, recall, f_beta = ml.model.compute_model_metrics(y_train, preds)
@@ -84,9 +95,16 @@ def test_inference_type(data):
 
     with open('model.pkl', 'rb') as f_p:
         model = pickle.load(f_p)
+
+    with open('encoder.pkl', 'rb') as f_p:
+        encoder = pickle.load(f_p)
+
+    with open('label_binarizer.pkl', 'rb') as f_p:
+        lb = pickle.load(f_p)
     
-    x_train, y_train, encoder, lb = process_data(
-        data, categorical_features=cat_features, label='salary', training=True
+    x_train, _, _, _ = process_data(
+        data, categorical_features=cat_features, label='salary', training=False,
+        encoder=encoder, lb=lb
     )
     
     preds = ml.model.inference(model, x_train)

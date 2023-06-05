@@ -32,35 +32,12 @@ def test_post_malformed():
         "capital_gain": 0,
         "capital_loss": 0,
         "hours_per_week": 40,
-        "native_country": "United-States",
-        "salary": "<=50K"}
+        "native_country": "United-States"}
 
     resp = client.post("/data/", content=json.dumps(data))
 
     assert resp.status_code == 400
     assert resp.json() == {"detail": "Age needs to be above 0."}
-
-def test_post_success():
-    data = {
-        "age": 25,
-        "workclass": "Private",
-        "fnlgt": 77516,
-        "education": "Bachelors",
-        "education_num": 13,
-        "marital_status": "Married-civ-spouse",
-        "occupation": "Adm-clerical",
-        "relationship": "Husband",
-        "race": "White",
-        "sex": "Male",
-        "capital_gain": 0,
-        "capital_loss": 0,
-        "hours_per_week": 40,
-        "native_country": "United-States",
-        "salary": "<=50K"}
-
-    resp = client.post("/data/", content = json.dumps(data))
-    assert resp.status_code == 200
-
 
 def test_post_success_1():
     data = {
@@ -77,8 +54,7 @@ def test_post_success_1():
         "capital_gain": 0,
         "capital_loss": 0,
         "hours_per_week": 40,
-        "native_country": "United-States",
-        "salary": "<=50K"}
+        "native_country": "United-States"}
 
     resp = client.post("/data/", content = json.dumps(data))
     assert resp.status_code == 200
@@ -98,8 +74,7 @@ def test_post_success_2():
         "capital_gain": 14084,
         "capital_loss": 0,
         "hours_per_week": 50,
-        "native_country": "United-States",
-        "salary": ">50K"}
+        "native_country": "United-States"}
 
     resp = client.post("/data/", content = json.dumps(data))
     assert resp.status_code == 200
