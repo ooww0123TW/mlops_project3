@@ -1,7 +1,7 @@
 import requests
 import json
 
-response = requests.get('https://income-predictor.onrender.com:10000')
+response = requests.get('https://salary-predictor-hdy5.onrender.com')
 print(response.status_code)
 print(response.json())
 
@@ -22,5 +22,6 @@ data = {
     "native_country": "United-States",
     "salary": "<=50K"}
 
-response = requests.post('https://income-predictor.onrender.com:10000/data/', json=data, auth=('user', 'pass'))
+response = requests.post('https://salary-predictor-hdy5.onrender.com/data/', json=data, auth=('user', 'pass'))
 print(response.status_code)
+print(response.json())
