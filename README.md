@@ -14,6 +14,8 @@ Generated docs scereenshot is named as "example.png".
 "test_main.py" includes one test case for each of the possible inference of the ML model (above & below 50K)
 
 ## API deployment
+Be sure to set python environment to 3.8.16 in render settings before testing.
+
 Screenshot that shows I enabled the continous development of my application is named as "continuous_development.png"
 
 Screenshots at the homepage are saved as "live_get.png" and "live_post.png"
