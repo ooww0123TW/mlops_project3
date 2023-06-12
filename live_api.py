@@ -1,7 +1,7 @@
 import requests
 import json
 
-response = requests.get('https://salary-predictor-8bu0.onrender.com')
+response = requests.get('https://predict-salary-over-50k.onrender.com/')
 print(response.status_code)
 print(response.json())
 
@@ -19,9 +19,8 @@ data = {
     "capital_gain": 0,
     "capital_loss": 0,
     "hours_per_week": 40,
-    "native_country": "United-States",
-    "salary": "<=50K"}
+    "native_country": "United-States"}
 
-response = requests.post('https://salary-predictor-8bu0.onrender.com/data/', json=data, auth=('user', 'pass'))
+response = requests.post('https://predict-salary-over-50k.onrender.com/data/', json=data, auth=('user', 'pass'))
 print(response.status_code)
 print(response.json())
