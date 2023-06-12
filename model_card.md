@@ -13,8 +13,11 @@ The users are prospective job hunter.
 The data was obtained from the UCI Machine Learning Repository (https://archive.ics.uci.edu/ml/datasets/census+income).
 To use the data for training a One Hot Encoder was used on the features and a label binarizer was used on the labels.
 
+## Evaluation Data
+Evaluation is done with randomly selected 20% of data in the dataset.
+
 ## Metrics
-The model was evaluated using F1 score. The value is 0.95
+The model was evaluated using precision, recall, F1 score. The values are 1.0, 0.91, 0.95
 
 ## Ethical Considerations
 We risk expressing the viewpoint that the attributes in this dataset are the only ones that are predictive of someone's income, even though we know this is not the case.

@@ -72,10 +72,10 @@ def test_model_metrics_output_type(data):
 
     
     preds = model.predict(x_train)
-    precision, recall, f_beta = ml.model.compute_model_metrics(y_train, preds)
+    precision, recall, f1 = ml.model.compute_model_metrics(y_train, preds)
     assert type(precision) == np.float64
     assert type(recall) == np.float64
-    assert type(f_beta) == np.float64
+    assert type(f1) == np.float64
 
 def test_inference_type(data):
     '''

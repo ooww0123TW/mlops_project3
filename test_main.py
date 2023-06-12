@@ -57,6 +57,7 @@ def test_post_success_1():
         "native_country": "United-States"}
 
     resp = client.post("/data/", content = json.dumps(data))
+    assert resp.json() == "<=50K"
     assert resp.status_code == 200
 
 def test_post_success_2():
@@ -77,4 +78,6 @@ def test_post_success_2():
         "native_country": "United-States"}
 
     resp = client.post("/data/", content = json.dumps(data))
+    assert resp.json() == ">50K"
     assert resp.status_code == 200
+    
