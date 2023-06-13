@@ -22,3 +22,5 @@ The model was evaluated using precision, recall, F1 score. The values are 1.0, 0
 ## Ethical Considerations
 We risk expressing the viewpoint that the attributes in this dataset are the only ones that are predictive of someone's income, even though we know this is not the case.
 
+## Caveats and Recommendations
+Census income dataset may have class imbalance problem. However, in this model, appropriate data selection or weighting for class is not conducted.

@@ -19,7 +19,7 @@ from ml.model import train_model, compute_model_metrics, inference
 import pickle
 import numpy as np
 
-def calculate_model_metrics_slices(slice_data):
+def calculate_model_metrics_slices(slice_list):
 
     with open('model.pkl', 'rb') as f_p:
         model = pickle.load(f_p)
@@ -31,20 +31,22 @@ def calculate_model_metrics_slices(slice_data):
         lb = pickle.load(f_p)
 
 
-    x_test, y_test, encoder, lb = process_data(
-        slice_data, categorical_features=cat_features, label="salary", training=False,
-        encoder = encoder, lb=lb
-    )
+    with open('slice_output.txt', 'w') as f_p:
+        f_p.write("education, precision, recall, f_1\n")
+        for group_df in slice_list:
+            x_test, y_test, encoder, lb = process_data(
+                group_df, categorical_features=cat_features, label="salary", training=False,
+                encoder = encoder, lb=lb
+            )
 
-    preds = inference(model, x_test)
-    precision, recall, f_1 = compute_model_metrics(y_test, preds)
+            preds = inference(model, x_test)
+            precision, recall, f_1 = compute_model_metrics(y_test, preds)
 
-    print(f"precision: {precision}")
-    print(f"recall: {recall}")
-    print(f"f_1: {f_1}")
+            f_p.write(f"{group_df['education'].iloc[0]}, {precision}, {recall}, {f_1}\n")
 
-    # Save the model metric to output file "slice_output.txt"
-    np.savetxt('slice_output.txt', (precision, recall, f_1))
+
+
+
 
 
 if __name__ == "__main__":
@@ -121,12 +123,10 @@ if __name__ == "__main__":
 
 
     # Test the model, and compute the model metric
-    unique_educations = data['education'].unique()
-    data_slice = pd.DataFrame()
-    for education in unique_educations:
-        subset = data[data['education'] == education]
-        representative_row = subset.iloc[0]
-        data_slice = data_slice.append(representative_row, ignore_index=True)
+    education_groups = data.groupby('education')
+    education_dfs = []
     
-    print(data_slice)
-    calculate_model_metrics_slices(data_slice)
+    for education, group_df in education_groups:
+        education_dfs.append(group_df)
+    
+    calculate_model_metrics_slices(education_dfs)
